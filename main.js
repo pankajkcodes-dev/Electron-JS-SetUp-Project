@@ -4,9 +4,26 @@ app.whenReady().then(createWindow);
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 500,
-    height: 400,
+    width: 270,
+    height: 120,
     resizable: true,
+    alwaysOnTop: true, // This will make the window always on top
+    webPreferences: {
+      nodeIntegration: true
+    }
   });
   win.loadFile("src/index.html");
 }
+
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', () => {
+  if (mainWindow === null) {
+    createWindow();
+  }
+});
